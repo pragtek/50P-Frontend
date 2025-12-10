@@ -25,6 +25,9 @@ import { useAuth } from "@app/_components/_core/AuthProvider/hooks";
 import { Stack } from "@mui/material";
 import AskDaysiAbout from "../dialogs/about";
 import aboutIcon from "/assets/images/askdaysi/global/about.png";
+import AskDaysiJobs from "../dialogs/jobs";
+import workIcon from "/assets/images/askdaysi/global/work.png"; 
+
 import { JumboIconButton } from "@jumbo/components/JumboIconButton";
 
 const pages = ["Products", "Pricing", "Blog"];
@@ -61,6 +64,8 @@ function AskDaysiAppBar() {
   };
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isJobOpen, setIsJobOpen] = React.useState(false);
+
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -120,6 +125,15 @@ function AskDaysiAppBar() {
                 isDialogOpened={isOpen}
                 handleCloseDialog={() => setIsOpen(false)}
               />
+              <JumboIconButton elevation={23} onClick={() => setIsJobOpen(true)}>
+              <img src={workIcon} alt="Jobs" style={{ width: "20px" }} />
+            </JumboIconButton>
+
+            <AskDaysiJobs 
+              isDialogOpened={isJobOpen} 
+              handleCloseDialog={() => setIsJobOpen(false)} 
+            />
+
               {/* <Accessibility fontSize={fontSize} setFontSize={setFontSize} /> */}
               <LanguagePopover />
               {isAuthenticated && <UserPopover />}

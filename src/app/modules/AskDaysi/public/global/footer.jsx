@@ -7,6 +7,7 @@ import {
 } from "../../styles/global/footer";
 import AskDaysiAbout from "../dialogs/about";
 import CopyrightOutlinedIcon from "@mui/icons-material/CopyrightOutlined";
+import AskDaysiJobs from "../dialogs/jobs";
 import AskDaysiTermsOfService from "../dialogs/TermsOfService";
 import { useTranslation } from "react-i18next";
 
@@ -15,6 +16,7 @@ const Footer = () => {
   const year = today.getFullYear();
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isJobs, setIsJobs] = useState(false);
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -35,7 +37,7 @@ const Footer = () => {
               <CopyrightOutlinedIcon
                 sx={{ position: "relative", top: "4px", fontSize: "18px" }}
               />{" "}
-              {year} TileFlexAI. All rights reserved.
+              {year} 50Paisa. All rights reserved.
             </ADFooterCopy>
           </Stack>
           <Stack>
