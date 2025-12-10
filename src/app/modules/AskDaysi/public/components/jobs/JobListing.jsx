@@ -13,7 +13,7 @@ export default function JobListing() {
       const query = `
         query GetJobs($first: Int, $skip: Int, $search: String) {
           allJobList(first: $first, skip: $skip, search: $search) {
-            total_rows
+            totalRows
             rows {
               jobId
               jobTitle
@@ -38,10 +38,10 @@ export default function JobListing() {
         });
 
         const json = await res.json();
-        const data = json.data.all_job_list;
+        const data = json.data.allJobList;
 
         setJobs(data.rows);
-        setTotal(data.total_rows);
+        setTotal(data.totalRows);
         setLoading(false);
       } catch (err) {
         console.error(err);
@@ -61,7 +61,7 @@ export default function JobListing() {
       <Stack spacing={2}>
         {jobs.map((job) => (
           <Card
-            key={job.job_id}
+            key={job.jobId}
             sx={{
               p: 2,
               borderRadius: 2,
@@ -69,7 +69,7 @@ export default function JobListing() {
               "&:hover": { border: "2px solid #a477f2" },
             }}
           >
-            <Typography variant="h6">{job.job_title}</Typography>
+            <Typography variant="h6">{job.jobTitle}</Typography>
           </Card>
         ))}
       </Stack>
