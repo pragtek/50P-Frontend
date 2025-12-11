@@ -29,37 +29,93 @@ const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <ADFooterWrapper maxWidth="100%">
-      <Container maxWidth="xl">
-        <ADFooterContainer>
-          <Stack>
-            <ADFooterCopy>
-              <CopyrightOutlinedIcon
-                sx={{ position: "relative", top: "4px", fontSize: "18px" }}
-              />{" "}
-              {year} 50Paisa. All rights reserved.
-            </ADFooterCopy>
-          </Stack>
-          <Stack>
-            <Typography
-              variant="h4"
-              onClick={() => handleTerms()}
-              sx={{ mt: 2, mb: 0, cursor: "pointer" }}
-            >
-              {t("terms.pageTitle")}
-            </Typography>
-          </Stack>
-        </ADFooterContainer>
-        <AskDaysiAbout
-          isDialogOpened={isOpen}
-          handleCloseDialog={() => setIsOpen(false)}
+    <ADFooterWrapper
+  maxWidth="100%"
+  style={{
+    background: "#fafafa",
+    borderTop: "1px solid rgba(0,0,0,0.08)",
+    padding: "30px 0",
+  }}
+>
+  <Container maxWidth="xl">
+    <ADFooterContainer
+      style={{
+        display: "flex",
+        justifyContent: "space-between",
+        alignItems: "center",
+        flexWrap: "wrap",
+        gap: "20px",
+      }}
+    >
+      {/* Left Section */}
+      <Stack direction="row" spacing={1} alignItems="center">
+        <CopyrightOutlinedIcon
+          sx={{ fontSize: 18, opacity: 0.6, position: "relative", top: "1px" }}
         />
-        <AskDaysiTermsOfService
-          isDialogOpened={isTerms}
-          handleCloseDialog={() => setIsTerms(false)}
-        />
-      </Container>
-    </ADFooterWrapper>
+        <ADFooterCopy
+          style={{
+            fontSize: "15px",
+            opacity: 0.8,
+            fontWeight: 500,
+            letterSpacing: "0.2px",
+          }}
+        >
+           {year} 50Paisa — All rights reserved.
+        </ADFooterCopy>
+      </Stack>
+
+      {/* Right Section */}
+      <Stack direction="row" spacing={3} alignItems="center">
+        <Typography
+          variant="body1"
+          onClick={() => handleTerms()}
+          sx={{
+            cursor: "pointer",
+            fontSize: "16px",
+            fontWeight: 600,
+            opacity: 0.8,
+            transition: "0.2s",
+            "&:hover": {
+              opacity: 1,
+              color: "#1976d2",
+            },
+          }}
+        >
+          {t("terms.pageTitle")}
+        </Typography>
+
+        <Typography
+          variant="body1"
+          onClick={() => setIsOpen(true)}
+          sx={{
+            cursor: "pointer",
+            fontSize: "16px",
+            fontWeight: 600,
+            opacity: 0.8,
+            transition: "0.2s",
+            "&:hover": {
+              opacity: 1,
+              color: "#1976d2",
+            },
+          }}
+        >
+          About
+        </Typography>
+      </Stack>
+    </ADFooterContainer>
+
+    {/* Dialogs */}
+    <AskDaysiAbout
+      isDialogOpened={isOpen}
+      handleCloseDialog={() => setIsOpen(false)}
+    />
+    <AskDaysiTermsOfService
+      isDialogOpened={isTerms}
+      handleCloseDialog={() => setIsTerms(false)}
+    />
+  </Container>
+</ADFooterWrapper>
+
   );
 };
 
