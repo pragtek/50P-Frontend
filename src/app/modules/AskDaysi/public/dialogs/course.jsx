@@ -45,9 +45,9 @@ const AskDaysiCourses = ({ isDialogOpened, handleCloseDialog }) => {
         }}
       >
         <Typography
-          variant="h5"
+          variant="h3"
           sx={{
-            fontWeight: 800,
+            fontWeight: 500,
             color: "#111",
             letterSpacing: 0.5,
           }}
@@ -77,14 +77,14 @@ const AskDaysiCourses = ({ isDialogOpened, handleCloseDialog }) => {
       <Container sx={{ pt: 14, pb: 10 }}>
         <Box textAlign="center" sx={{ mb: 4 }}>
           <Typography
-            variant="h3"
+            variant="h4"
             sx={{
-              fontWeight: 800,
+              fontWeight: 500,
               fontSize: "34px",
               color: "#222",
             }}
           >
-            Courses List
+            Course List
           </Typography>
 
           <Typography

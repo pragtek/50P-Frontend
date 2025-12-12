@@ -1,3 +1,4 @@
+
 // ---------------------------------------------
 // GET COURSES QUERY (with search & pagination)
 // ---------------------------------------------
@@ -22,19 +23,10 @@ export const GET_COURSES = (searchTerm = "", page = 1) => {
   `;
 };
 
-// ---------------------------------------------
-// DELETE COURSE
-// ---------------------------------------------
-export const deleteCourse = (id) => `
-  mutation {
-    deleteCourse(courseId: ${id}) {
-      ok
-    }
-  }
-`;
+
 
 // ---------------------------------------------
-// CREATE COURSE
+// CREATE COURSE  (UPDATED: includes firstName, lastName)
 // ---------------------------------------------
 export const createCourse = (input) => `
   mutation {
@@ -42,7 +34,10 @@ export const createCourse = (input) => `
       input: {
         courseName: "${input.courseName}"
         duration: "${input.duration}"
-        teacherId: ${input.teacherId}
+        teacher: {
+          firstName: "${input.firstName}"
+          lastName: "${input.lastName}"
+        }
       }
     ) {
       courseId
@@ -51,7 +46,7 @@ export const createCourse = (input) => `
 `;
 
 // ---------------------------------------------
-// UPDATE COURSE
+// UPDATE COURSE (UPDATED: includes teacher firstName + lastName)
 // ---------------------------------------------
 export const updateCourse = (id, input) => `
   mutation {
@@ -60,10 +55,23 @@ export const updateCourse = (id, input) => `
       input: {
         courseName: "${input.courseName}"
         duration: "${input.duration}"
-        teacherId: ${input.teacherId}
+        teacher: {
+          firstName: "${input.firstName}"
+          lastName: "${input.lastName}"
+        }
       }
     ) {
       courseId
     }
   }
 `;
+// ---------------------------------------------
+// DELETE COURSE
+// ---------------------------------------------
+export const deleteCourse = (id) => `
+  mutation {
+    deleteCourse(id: ${id}) {
+      ok
+    }
+  }
+`
