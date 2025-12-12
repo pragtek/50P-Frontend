@@ -14,7 +14,7 @@ export const GET_JOBS = (searchTerm = "", page = 1) => {
           qualification
           location
           salary
-        
+          
           category
           experience
         }
@@ -70,7 +70,7 @@ export const updateJob = (id, input) => `
         qualification: "${input.qualification}"
         location: "${input.location}"
         salary: "${input.salary}"
-      
+        
         category: "${input.category}"
         experience: "${input.experience}"
       }

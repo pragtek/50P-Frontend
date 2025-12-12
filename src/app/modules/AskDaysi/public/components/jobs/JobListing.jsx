@@ -24,6 +24,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
 import WorkIcon from "@mui/icons-material/Work";
 import PlaceIcon from "@mui/icons-material/Place";
+import CurrencyRupeeIcon from "@mui/icons-material/CurrencyRupee";
 import BusinessIcon from "@mui/icons-material/Business";
 
 export default function JobsList() {
@@ -59,15 +60,15 @@ export default function JobsList() {
 
   return (
     <Fade in={true}>
-      <Box p={3} maxWidth="850px" mx="auto">
+      <Box p={1} maxWidth="850px" mx="auto">
         
         {/* Search Box */}
         <Paper
-          elevation={6}
+          elevation={5}
           sx={{
-            p: 2,
+            p: 1.5,
             mb: 4,
-            borderRadius: 4,
+            borderRadius: 5,
             display: "flex",
             alignItems: "center",
             gap: 2,
@@ -108,17 +109,17 @@ export default function JobsList() {
               sx={{
                 borderRadius: 4,
                 overflow: "hidden",
-                transition: "0.25s",
-                "&:hover": {
-                  transform: "scale(1.015)",
-                  boxShadow: "0 8px 22px rgba(0,0,0,0.15)",
-                },
+                transition: "0.2s",
+                // "&:hover": {
+                //   transform: "scale(1.015)",
+                //   boxShadow: "0 8px 22px rgba(0,0,0,0.15)",
+                // },
               }}
             >
               <CardActionArea onClick={() => navigate(`/jobs/${r.jobId}`)}>
                 <CardContent sx={{ p: 3 }}>
                   <Box display="flex" justifyContent="space-between" alignItems="center">
-                    <Typography variant="h6" fontWeight={700}>
+                    <Typography variant="h3" fontWeight={400}>
                       {r.jobTitle}
                     </Typography>
 
@@ -140,15 +141,11 @@ export default function JobsList() {
                     <Typography color="text.secondary">{r.location}</Typography>
                   </Box>
 
-                  {/* Employment Type
-                  <Box mt={2}>
-                    <Chip
-                      icon={<WorkIcon />}
-                      label={job.employmentType}
-                      color="primary"
-                      sx={{ fontSize: 14, px: 1.5 }}
-                    />
-                  </Box> */}
+                   {/* salary */}
+                  <Box display="flex" alignItems="center" mt={1}>
+                  <CurrencyRupeeIcon sx={{ color: "secondary.main", mr: 1 }} />
+                  <Typography color="text.secondary">{r.salary}</Typography>
+                  </Box>
 
                   {/* Experience */}
                   <Box mt={1}>
@@ -156,7 +153,7 @@ export default function JobsList() {
                       icon={<BusinessIcon />}
                       label={`Experience: ${r.experience}`}
                       color="secondary"
-                      sx={{ fontSize: 14, px: 1.5 }}
+                      sx={{ fontSize: 15, px: 1 }}
                     />
                   </Box>
 
