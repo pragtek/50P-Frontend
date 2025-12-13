@@ -68,11 +68,11 @@ export const updateCourse = (id, input) => `
 // ---------------------------------------------
 // DELETE COURSE
 // ---------------------------------------------
-export const deleteCourse = (id) => `
-  mutation {
-    deleteCourse(id: ${id}) {
-      ok
-    }
-  }
-`
+// export const deleteCourse = (id) => `
+//   mutation {
+//     deleteCourse(id: ${id}) {
+//       ok
+//     }
+//   }
+// `
 //query

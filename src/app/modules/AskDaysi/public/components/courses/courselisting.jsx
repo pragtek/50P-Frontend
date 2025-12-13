@@ -1,24 +1,21 @@
 
 import { useState, useRef } from "react";
-import { useQuery, useMutation } from "react-query";
+import { useQuery } from "react-query";
 import { useNavigate } from "react-router-dom";
-import { gqlQuery, gqlMutate, queryClient } from "@app/_utilities/http";
-import { GET_COURSES, deleteCourse } from "./query";
+import { gqlQuery } from "@app/_utilities/http";
+import { GET_COURSES } from "./query";
 
 import {
   Box,
   Card,
   CardContent,
   Typography,
-  IconButton,
   TextField,
   Pagination,
   CircularProgress,
   Fade,
-  Tooltip,
 } from "@mui/material";
 
-import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
 import SchoolIcon from "@mui/icons-material/School";
 import PersonIcon from "@mui/icons-material/Person";
@@ -44,43 +41,9 @@ export default function CourseList() {
   const rows = data?.rows || [];
   const totalRows = data?.totalRows || 0;
 
-  // const { mutate: removeCourse } = useMutation({
-  //   mutationFn: gqlMutate,
-  //   onSuccess: () => {
-  //     queryClient.invalidateQueries(["courses"]);
-  //   },
-  // });
-
-  
-  // const handleDelete = (id) => {
-  //   if (!window.confirm("Are you sure want to delete this course?")) return;
-  //   removeCourse({
-  //     path: "/graphql",
-  //     inData: { gql: deleteCourse(id) },
-  //   });
-  // };
-  const { mutate: removeCourse } = useMutation({
-  mutationFn: gqlMutate,
-  onSuccess: () => {
-    queryClient.invalidateQueries({ queryKey: ["courses"] });
-  },
-});
-
-  const handleDelete = (id) => {
-  if (!window.confirm("Are you sure want to delete this course?")) return;
-
-  removeCourse({
-    path: "/graphql",
-    inData: { gql: deleteCourse(Number(id)) }, // ✅ CAST TO NUMBER
-  });
-};
-
   return (
     <Fade in={true}>
       <Box p={3} maxWidth="1200px" mx="auto">
-
-        
-
         <Box display="flex" justifyContent="center" mb={3}>
           <TextField
             inputRef={searchInput}
@@ -88,7 +51,6 @@ export default function CourseList() {
             placeholder="Search courses..."
             size="small"
             sx={{
-              // width: "px",
               background: "#ffffff",
               borderRadius: 2,
               boxShadow: "0px 3px 10px rgba(0,0,0,0.15)",
@@ -128,11 +90,9 @@ export default function CourseList() {
                 backgroundColor: "#EBF6FF",
                 border: "1px solid #CDE9FF",
                 transition: "0.25s ease",
-                
               }}
             >
               <CardContent>
-
                 <Box display="flex" alignItems="center" mb={2}>
                   <SchoolIcon sx={{ color: "#78092cff", mr: 1 }} />
                   <Typography
@@ -144,7 +104,6 @@ export default function CourseList() {
                   </Typography>
                 </Box>
 
-                
                 <Box display="flex" alignItems="center" mb={2}>
                   <PersonIcon sx={{ color: "#161717ff", mr: 1 }} />
                   <Typography fontSize={15} sx={{ color: "#101010ff" }}>
@@ -158,28 +117,6 @@ export default function CourseList() {
                     {r.duration}
                   </Typography>
                 </Box>
-
-                <Box mt={3} textAlign="right">
-                  <Tooltip title="deleteCourse">
-                    <IconButton
-              
-                      onClick={() => handleDelete(r.courseId)} 
-                      sx={{
-                        color: "#ebdfdfff",
-                        backgroundColor: "#d63031",
-                        width: 42,
-                        height: 42,
-                        borderRadius: "12px",
-                        "&:hover": { backgroundColor: "#b71c1c" },
-                        boxShadow: "0px 4px 12px rgba(0,0,0,0.25)",
-                      }}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
-                  </Tooltip>
-                  
-                </Box>
-
               </CardContent>
             </Card>
           ))}
@@ -201,4 +138,3 @@ export default function CourseList() {
     </Fade>
   );
 }
-//courseui 
