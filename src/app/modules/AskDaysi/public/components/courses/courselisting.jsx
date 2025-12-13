@@ -44,22 +44,36 @@ export default function CourseList() {
   const rows = data?.rows || [];
   const totalRows = data?.totalRows || 0;
 
-  const { mutate: removeCourse } = useMutation({
-    mutationFn: gqlMutate,
-    onSuccess: () => {
-      queryClient.invalidateQueries(["courses"]);
-    },
-  });
+  // const { mutate: removeCourse } = useMutation({
+  //   mutationFn: gqlMutate,
+  //   onSuccess: () => {
+  //     queryClient.invalidateQueries(["courses"]);
+  //   },
+  // });
 
   
+  // const handleDelete = (id) => {
+  //   if (!window.confirm("Are you sure want to delete this course?")) return;
+  //   removeCourse({
+  //     path: "/graphql",
+  //     inData: { gql: deleteCourse(id) },
+  //   });
+  // };
+  const { mutate: removeCourse } = useMutation({
+  mutationFn: gqlMutate,
+  onSuccess: () => {
+    queryClient.invalidateQueries({ queryKey: ["courses"] });
+  },
+});
+
   const handleDelete = (id) => {
-    if (!window.confirm("Are you sure want to delete this course?")) return;
-    removeCourse({
-      path: "/graphql",
-      inData: { gql: deleteCourse(id) },
-    });
-  };
-  
+  if (!window.confirm("Are you sure want to delete this course?")) return;
+
+  removeCourse({
+    path: "/graphql",
+    inData: { gql: deleteCourse(Number(id)) }, // ✅ CAST TO NUMBER
+  });
+};
 
   return (
     <Fade in={true}>
@@ -187,4 +201,4 @@ export default function CourseList() {
     </Fade>
   );
 }
-// courselisting.jsx
+
