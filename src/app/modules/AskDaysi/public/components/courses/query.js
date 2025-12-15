@@ -22,6 +22,23 @@ export const GET_COURSES = (searchTerm = "", page = 1) => {
     }
   `;
 };
+export const GET_COURSE_DETAIL = `
+  query MyQuery {
+    allCourses(first: 100) {
+      rows {
+        courseId
+        courseName
+        duration
+        level
+        teacher {
+          firstName
+          lastName
+        }
+      }
+    }
+  }
+`;
+
 
 
 

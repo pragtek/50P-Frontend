@@ -20,6 +20,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import SchoolIcon from "@mui/icons-material/School";
 import PersonIcon from "@mui/icons-material/Person";
 import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import { Button } from "@mui/material";
 
 export default function CourseList() {
   const navigate = useNavigate();
@@ -117,11 +118,23 @@ export default function CourseList() {
                     {r.duration}
                   </Typography>
                 </Box>
+                  
+
+          <Box display="flex" justifyContent="flex-end" mt={3}>
+            <Button
+              variant="contained"
+              size="small"
+              onClick={() => navigate(`/askdaysi/courses/${r.courseId}`)}
+            >
+              View Details
+            </Button>
+          </Box>
+                
               </CardContent>
             </Card>
           ))}
         </Box>
-
+       
         {totalRows > 0 && (
           <Box mt={5} display="flex" justifyContent="center">
             <Pagination
