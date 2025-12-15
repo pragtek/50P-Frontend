@@ -19,7 +19,7 @@ import {
   Tooltip,
   Paper,
 } from "@mui/material";
-
+import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SearchIcon from "@mui/icons-material/Search";
 import WorkIcon from "@mui/icons-material/Work";
@@ -116,14 +116,15 @@ export default function JobsList() {
                 // },
               }}
             >
-              <CardActionArea onClick={() => navigate(`/jobs/${r.jobId}`)}>
+              {/* <CardActionArea onClick={() => navigate(`/jobs/${r.jobId}`)}> */}
+              <CardActionArea onClick={() => navigate(`/askdaysi/jobs/${r.jobId}`)}>
                 <CardContent sx={{ p: 3 }}>
                   <Box display="flex" justifyContent="space-between" alignItems="center">
                     <Typography variant="h3" fontWeight={400}>
                       {r.jobTitle}
                     </Typography>
 
-                    <Tooltip title="Delete Job">
+                    {/* <Tooltip title="Delete Job">
                       <IconButton
                         onClick={(e) => {
                           e.stopPropagation();
@@ -132,7 +133,7 @@ export default function JobsList() {
                       >
                         <DeleteIcon color="error" />
                       </IconButton>
-                    </Tooltip>
+                    </Tooltip> */}
                   </Box>
 
                   {/* Location */}
@@ -156,6 +157,33 @@ export default function JobsList() {
                       sx={{ fontSize: 15, px: 1 }}
                     />
                   </Box>
+                  
+                    {/* View Details Button */}
+                    <Box mt={2} textAlign="right">
+                      <Button
+                      size="small"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        navigate(`/askdaysi/jobs/${r.jobId}`);
+                      }}
+                      sx={{
+                        textTransform: "none",
+                        borderRadius: 2,
+                        px: 2.5,
+                        fontWeight: 500,
+                        color: "#fff",
+                        background: "linear-gradient(135deg, #e1420dff, #f45f09ff)",
+                      
+                        "&:hover": {
+                          background: "linear-gradient(135deg, #4338ca, #2563eb)",
+                          
+                        },
+                      }}
+                    >
+                      View Details
+                    </Button>
+
+                    </Box>
 
                 </CardContent>
               </CardActionArea>
