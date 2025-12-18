@@ -38,6 +38,14 @@ export const GET_COURSE_DETAIL = `
     }
   }
 `;
+export const APPLY_COURSE = (courseId) => `
+  mutation {
+    applyCourse(courseId: ${courseId}) {
+      ok
+    }
+  }
+`;
+
 
 
 
