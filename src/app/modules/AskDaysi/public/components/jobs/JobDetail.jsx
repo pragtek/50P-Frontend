@@ -1,7 +1,11 @@
+import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery } from "react-query";
+import { useMutation } from "react-query";
 import { gqlQuery } from "@app/_utilities/http";
 import { GET_JOB_DETAIL } from "./queries";
+import { Snackbar, Alert } from "@mui/material";
+import { APPLY_JOB } from "./queries";
 
 import {
   Box,
@@ -33,6 +37,25 @@ export default function JobDetail() {
       }),
   });
 
+// Appy to job alert
+const [openAlert, setOpenAlert] = React.useState(false);
+
+const applyJobMutation = useMutation({
+  mutationFn: () =>
+    gqlQuery({
+      path: "/graphql",
+      inData: {
+        gql: APPLY_JOB(id),
+      },
+    }),
+  onSuccess: () => {
+    setOpenAlert(true);
+  },
+    onError: () => {
+    alert("Failed to apply for the job");
+  },
+
+});
   // find clicked job from list
  const job = data?.rows?.find(
    (item) => String(item.jobId) === String(id)
@@ -99,6 +122,31 @@ export default function JobDetail() {
         <Typography color="text.secondary">
           {job.qualification}
         </Typography>
+
+          {/* add to job box */}
+        <Box mt={4}>
+          <Button
+            variant="contained"
+            fullWidth
+            disabled={applyJobMutation.isLoading}
+            onClick={() => applyJobMutation.mutate()}
+          >
+            {applyJobMutation.isLoading ? (
+              <CircularProgress size={24} color="inherit" />
+            ) : (
+              "Apply to Job"
+            )}
+          </Button>
+        </Box>
+        <Snackbar
+        open={openAlert}
+        autoHideDuration={3000}
+        onClose={() => setOpenAlert(false)}
+      >
+        <Alert severity="success" onClose={() => setOpenAlert(false)}>
+          You have successfully applied for the job
+        </Alert>
+      </Snackbar>
 
       </Paper>
     </Box>

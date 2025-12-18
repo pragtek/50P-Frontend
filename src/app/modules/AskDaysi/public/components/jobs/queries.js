@@ -40,8 +40,16 @@ export const GET_JOB_DETAIL = (id) => `
     }
   }
 `;
-
-
+// --------------------------------------------
+// APPLY JOB
+// ---------------------------------------------
+export const APPLY_JOB = (jobId) => `
+  mutation {
+    applyJob(jobId: ${jobId}) {
+      ok
+    }
+  }
+`;
 
 // ---------------------------------------------
 // DELETE JOB 
