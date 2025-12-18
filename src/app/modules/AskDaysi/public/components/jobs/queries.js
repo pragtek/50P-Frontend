@@ -1,6 +1,7 @@
 // ---------------------------------------------
 // GET JOBS QUERY (backend = all_job_list)
 // ---------------------------------------------
+
 export const GET_JOBS = (searchTerm = "", page = 1) => {
   const skip = (page - 1) * 10;
 
@@ -14,7 +15,7 @@ export const GET_JOBS = (searchTerm = "", page = 1) => {
           qualification
           location
           salary
-        
+          
           category
           experience
         }
@@ -23,6 +24,24 @@ export const GET_JOBS = (searchTerm = "", page = 1) => {
     }
   `;
 };
+export const GET_JOB_DETAIL = (id) => `
+  query {
+    allJobList(search: "", skip: 0, first: 100) {
+      rows {
+        jobId
+        jobTitle
+        description
+        qualification
+        location
+        salary
+        category
+        experience
+      }
+    }
+  }
+`;
+
+
 
 // ---------------------------------------------
 // DELETE JOB 
@@ -70,7 +89,7 @@ export const updateJob = (id, input) => `
         qualification: "${input.qualification}"
         location: "${input.location}"
         salary: "${input.salary}"
-      
+        
         category: "${input.category}"
         experience: "${input.experience}"
       }

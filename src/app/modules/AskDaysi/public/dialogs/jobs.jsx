@@ -47,9 +47,9 @@ return (
     }}
   >
     <Typography
-      variant="h5"
+      variant="h2"
       sx={{
-        fontWeight: 800,
+        fontWeight: 400,
         color: "#111",
         letterSpacing: 0.5,
       }}
@@ -79,10 +79,10 @@ return (
   <Container sx={{ pt: 14, pb: 10 }}>
     <Box textAlign="center" sx={{ mb: 4 }}>
       <Typography
-        variant="h3"
+        variant="h2"
         sx={{
-          fontWeight: 800,
-          fontSize: "34px",
+          fontWeight: 350,
+          fontSize: "30px",
           color: "#222",
         }}
       >
@@ -90,14 +90,14 @@ return (
       </Typography>
 
       <Typography
-        variant="h6"
+        variant="h5"
         sx={{
           opacity: 0.7,
           mt: 1,
           fontWeight: 400,
         }}
       >
-        Discover great opportunities tailored for you ✨
+        Find Your Perfect Job Match 💼
       </Typography>
     </Box>
 

@@ -55,6 +55,7 @@ import SpecializationsList from "../admin/dashboard/pages/Specializations/List";
 import SpecializationsForm from "../admin/dashboard/pages/Specializations/Form";
 import ClinicsList from "../admin/dashboard/pages/Clinics/List";
 import ClinicsForm from "../admin/dashboard/pages/Clinics/Form";
+import JobDetail from "../public/components/jobs/JobDetail";
 
 // 🔹 Research / Extra
 import TestComponent from "@app/modules/research/TestComponent";
@@ -70,10 +71,16 @@ const ROUTES_ASKDAYSI = [
     path: "/",
     element: <AskDaysiLayout />,
     children: [
+      
       {
         path: "/",
         element: <Page Component={AskDaysiChat} />,
       },
+     
+       {
+      path: "/askdaysi/jobs/:id",
+      element: <Page Component={JobDetail} />,
+    },
       {
         path: "/askdaysi/courses/:courseId",
         element: <Page Component={CourseDetail} />,
@@ -215,7 +222,7 @@ const ROUTES_ASKDAYSI = [
       { path: "/askdaysi/queue", element: <Page Component={ADQueueList} hoc={withAuth} /> },
       { path: "/askdaysi/queue/new", element: <Page Component={ADQueueForm} hoc={withAuth} /> },
       { path: "/askdaysi/queue/:id", element: <Page Component={ADQueueForm} hoc={withAuth} /> },
-
+      
       // -----------------------
       // TIMESLOTS
       // -----------------------
