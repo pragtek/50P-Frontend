@@ -6,7 +6,6 @@ import {
   ADFooterWrapper,
 } from "../../styles/global/footer";
 import AskDaysiAbout from "../dialogs/about";
-import AskDaysiCourses from "../dialogs/course";
 import CopyrightOutlinedIcon from "@mui/icons-material/CopyrightOutlined";
 import AskDaysiTermsOfService from "../dialogs/TermsOfService";
 import { useTranslation } from "react-i18next";
@@ -36,7 +35,7 @@ const Footer = () => {
               <CopyrightOutlinedIcon
                 sx={{ position: "relative", top: "4px", fontSize: "18px" }}
               />{" "}
-              {year} 50 Paisa Course Dashboard . All rights reserved.
+              {year} TileFlexAI. All rights reserved.
             </ADFooterCopy>
           </Stack>
           <Stack>
