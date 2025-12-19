@@ -24,7 +24,12 @@ import { Colors } from "../../theme/colors";
 import { useAuth } from "@app/_components/_core/AuthProvider/hooks";
 import { Stack } from "@mui/material";
 import AskDaysiAbout from "../dialogs/about";
+import AskDaysiCourses from "../dialogs/course";
 import aboutIcon from "/assets/images/askdaysi/global/about.png";
+import courseIcon from "/assets/images/askdaysi/global/course.png";
+import AskDaysiJobs from "../dialogs/jobs";
+import workIcon from "/assets/images/askdaysi/global/work.png"; 
+
 import { JumboIconButton } from "@jumbo/components/JumboIconButton";
 
 const pages = ["Products", "Pricing", "Blog"];
@@ -61,6 +66,9 @@ function AskDaysiAppBar() {
   };
 
   const [isOpen, setIsOpen] = React.useState(false);
+  const [isCourseOpen, setIsCourseOpen] = React.useState(false);
+  const [isJobOpen, setIsJobOpen] = React.useState(false);
+
   const handleOpen = () => {
     setIsOpen(!isOpen);
   };
@@ -120,6 +128,23 @@ function AskDaysiAppBar() {
                 isDialogOpened={isOpen}
                 handleCloseDialog={() => setIsOpen(false)}
               />
+              <JumboIconButton elevation={23} onClick={() => setIsCourseOpen(true)}>
+              <img src={courseIcon} alt="Courses" style={{ width: "20px" }} />
+            </JumboIconButton>
+
+            <AskDaysiCourses 
+              isDialogOpened={isCourseOpen} 
+              handleCloseDialog={() => setIsCourseOpen(false)} 
+            />
+              <JumboIconButton elevation={23} onClick={() => setIsJobOpen(true)}>
+              <img src={workIcon} alt="Jobs" style={{ width: "20px" }} />
+            </JumboIconButton>
+
+            <AskDaysiJobs 
+              isDialogOpened={isJobOpen} 
+              handleCloseDialog={() => setIsJobOpen(false)} 
+            />
+
               {/* <Accessibility fontSize={fontSize} setFontSize={setFontSize} /> */}
               <LanguagePopover />
               {isAuthenticated && <UserPopover />}
@@ -132,3 +157,4 @@ function AskDaysiAppBar() {
   );
 }
 export default AskDaysiAppBar;
+//appbar

@@ -1,9 +1,16 @@
+<<<<<<< HEAD
 
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
 import { gqlQuery } from "@app/_utilities/http";
 import { GET_COURSE_DETAIL, APPLY_COURSE } from "./query";
+=======
+import { useParams, useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
+import { gqlQuery } from "@app/_utilities/http";
+import { GET_COURSE_DETAIL } from "./query";
+>>>>>>> 60869eba7cc309bbee70ed978ddc02db6ec50742
 
 import {
   Box,
@@ -13,8 +20,11 @@ import {
   CircularProgress,
   Button,
   Divider,
+<<<<<<< HEAD
   Snackbar,
   Alert,
+=======
+>>>>>>> 60869eba7cc309bbee70ed978ddc02db6ec50742
 } from "@mui/material";
 
 import SchoolIcon from "@mui/icons-material/School";
@@ -37,6 +47,7 @@ export default function CourseDetail() {
       }),
   });
 
+<<<<<<< HEAD
   // Apply course alert
   const [openAlert, setOpenAlert] = React.useState(false);
 
@@ -53,6 +64,8 @@ export default function CourseDetail() {
     },
   });
 
+=======
+>>>>>>> 60869eba7cc309bbee70ed978ddc02db6ec50742
   // Find selected course
   const course = data?.rows?.find(
     (item) => String(item.courseId) === String(courseId)
@@ -76,6 +89,10 @@ export default function CourseDetail() {
 
   return (
     <Box maxWidth="900px" mx="auto" p={5}>
+<<<<<<< HEAD
+=======
+      
+>>>>>>> 60869eba7cc309bbee70ed978ddc02db6ec50742
       {/* Back Button */}
       <Button
         startIcon={<ArrowBackIcon />}
@@ -86,6 +103,10 @@ export default function CourseDetail() {
       </Button>
 
       <Paper elevation={6} sx={{ p: 4, borderRadius: 4 }}>
+<<<<<<< HEAD
+=======
+        
+>>>>>>> 60869eba7cc309bbee70ed978ddc02db6ec50742
         {/* Course Title */}
         <Typography variant="h3" fontWeight={500}>
           {course.courseName}
@@ -108,13 +129,18 @@ export default function CourseDetail() {
         <Typography variant="h5" gutterBottom>
           Course Overview
         </Typography>
+<<<<<<< HEAD
         <Typography color="text.secondary" lineHeight={1.8} mb={4}>
+=======
+        <Typography color="text.secondary" lineHeight={1.8}>
+>>>>>>> 60869eba7cc309bbee70ed978ddc02db6ec50742
           This course is designed to help students understand the fundamentals
           and advanced concepts related to the subject. It is suitable for
           learners at the <strong>{course.level}</strong> level and is guided by
           an experienced instructor.
         </Typography>
 
+<<<<<<< HEAD
         {/* Apply for Course */}
         <Button
           variant="contained"
@@ -139,6 +165,8 @@ export default function CourseDetail() {
             You have successfully applied for the course
           </Alert>
         </Snackbar>
+=======
+>>>>>>> 60869eba7cc309bbee70ed978ddc02db6ec50742
       </Paper>
     </Box>
   );

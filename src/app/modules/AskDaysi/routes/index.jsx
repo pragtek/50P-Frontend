@@ -31,6 +31,7 @@ import ADContextCardDesign from "../admin/dashboard/components/ContextCard";
 import UserManagement from "../admin/dashboard/pages/UserManagement";
 import Subscription from "../admin/dashboard/components/PricingPlan/components/subscription";
 import HealthChecker from "../admin/dashboard/pages/HealthChecker";
+import CourseDetail from "../public/components/courses/CourseDetail";
 
 // 🔹 Modules
 import ADQueueList from "../admin/dashboard/pages/Queue/List";
@@ -44,8 +45,8 @@ import TransactionsList from "../admin/dashboard/pages/Transactions/List";
 import TransactionsForm from "../admin/dashboard/pages/Transactions/Form";
 import TeacherList from "../admin/dashboard/pages/TeacherModule/List";
 import TeacherForm from "../admin/dashboard/pages/TeacherModule/Form";
-import SubscriptionList from "../admin/dashboard/pages/SubscriptionModule/List";
-import SubscriptionForm from "../admin/dashboard/pages/SubscriptionModule/Form";
+import SubscriptionList from "../admin/dashboard/pages/Subscriptionmodule/List";
+import SubscriptionForm from "../admin/dashboard/pages/Subscriptionmodule/Form";
 import JobList from "../admin/dashboard/pages/JobModule/List";
 import JobForm from "../admin/dashboard/pages/JobModule/Form";
 import CourseList from "../admin/dashboard/pages/CourseModule/List";
@@ -54,6 +55,7 @@ import SpecializationsList from "../admin/dashboard/pages/Specializations/List";
 import SpecializationsForm from "../admin/dashboard/pages/Specializations/Form";
 import ClinicsList from "../admin/dashboard/pages/Clinics/List";
 import ClinicsForm from "../admin/dashboard/pages/Clinics/Form";
+import JobDetail from "../public/components/jobs/JobDetail";
 
 // 🔹 Research / Extra
 import TestComponent from "@app/modules/research/TestComponent";
@@ -69,9 +71,19 @@ const ROUTES_ASKDAYSI = [
     path: "/",
     element: <AskDaysiLayout />,
     children: [
+      
       {
         path: "/",
         element: <Page Component={AskDaysiChat} />,
+      },
+     
+       {
+      path: "/askdaysi/jobs/:id",
+      element: <Page Component={JobDetail} />,
+    },
+      {
+        path: "/askdaysi/courses/:courseId",
+        element: <Page Component={CourseDetail} />,
       },
       {
         path: "/askdaysi/forgot-password",
@@ -210,7 +222,7 @@ const ROUTES_ASKDAYSI = [
       { path: "/askdaysi/queue", element: <Page Component={ADQueueList} hoc={withAuth} /> },
       { path: "/askdaysi/queue/new", element: <Page Component={ADQueueForm} hoc={withAuth} /> },
       { path: "/askdaysi/queue/:id", element: <Page Component={ADQueueForm} hoc={withAuth} /> },
-
+      
       // -----------------------
       // TIMESLOTS
       // -----------------------
