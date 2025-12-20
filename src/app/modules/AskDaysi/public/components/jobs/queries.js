@@ -43,13 +43,15 @@ export const GET_JOB_DETAIL = (id) => `
 // --------------------------------------------
 // APPLY JOB
 // ---------------------------------------------
-export const APPLY_JOB = (jobId) => `
-  mutation {
-    applyJob(jobId: ${jobId}) {
+export const APPLY_JOB = `
+  mutation ApplyJob($jobId: Int!) {
+    applyJob(jobId: $jobId) {
       ok
+      message
     }
   }
 `;
+
 
 // ---------------------------------------------
 // DELETE JOB 
