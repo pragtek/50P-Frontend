@@ -26,31 +26,43 @@ export const GET_JOBS = (searchTerm = "", page = 1) => {
 };
 export const GET_JOB_DETAIL = (id) => `
   query {
-    allJobList(search: "", skip: 0, first: 100) {
+    jobById(jobId: ${id}) {
+      jobId
+      jobTitle
+      description
+      qualification
+      location
+      salary
+      category
+      experience
+    }
+  }
+`;
+// ---------------------------------------------
+// GET APPLIED JOBS BY USER
+// ---------------------------------------------
+export const GET_APPLIED_JOBS = (userId) => `
+  query {
+    allJobByUser(userId: ${userId}) {
       rows {
         jobId
-        jobTitle
-        description
-        qualification
-        location
-        salary
-        category
-        experience
       }
     }
   }
 `;
-// --------------------------------------------
+
+// ---------------------------------------------
 // APPLY JOB
 // ---------------------------------------------
-export const APPLY_JOB = `
-  mutation ApplyJob($jobId: Int!) {
-    applyJob(jobId: $jobId) {
-      ok
+export const APPLY_JOB = (jobId,userId) => `
+  mutation {
+    applyJob(jobId: $jobId, userId: $userId) {
+      success
       message
     }
   }
 `;
+
 
 
 // ---------------------------------------------

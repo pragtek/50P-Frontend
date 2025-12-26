@@ -1,8 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation } from "react-query";
-import { gqlQuery, queryClient } from "@app/_utilities/http";
-import { GET_JOB_DETAIL, APPLY_JOB } from "./queries";
+import { gqlQuery, gqlMutate, queryClient } from "@app/_utilities/http";
 
 import {
   Box,
@@ -22,91 +21,80 @@ import BusinessIcon from "@mui/icons-material/Business";
 import CategoryIcon from "@mui/icons-material/Category";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
+import { GET_JOB_DETAIL, GET_APPLIED_JOBS, APPLY_JOB } from "./queries";
+
+
+const USER_ID = 10;
+
 export default function JobDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
+  const [openAlert, setOpenAlert] = useState(false);
 
-  /* ---------------------------------------
-   * JOB DETAIL
-   * ------------------------------------- */
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["jobdetails", id],
+  // ---------------------------------------
+  // JOB DETAIL QUERY
+  // ---------------------------------------
+  const { data: jobData, isLoading: jobLoading, isError: jobError } = useQuery({
+    queryKey: ["job_detail", id],
     queryFn: ({ signal }) =>
       gqlQuery({
         signal,
         path: "/graphql",
-        inData: { gql: GET_JOB_DETAIL(id) },
+        inData: { gql: GET_JOB_DETAIL(Number(id)) },
       }),
   });
 
-  const job = data?.rows?.find(
-    (item) => String(item.jobId) === String(id)
-  );
+  const job = jobData?.jobId;
 
-  /* ---------------------------------------
-   * APPLIED JOBS (BY USER)
-   * ------------------------------------- */
-   const { data: appliedData, isLoading: appliedLoading } = useQuery({
-    queryKey: ["appliedJobs"],
+  // ---------------------------------------
+  // APPLIED JOBS QUERY
+  // ---------------------------------------
+  const { data: appliedData, isLoading: appliedLoading } = useQuery({
+    queryKey: ["applied_jobs", USER_ID],
     queryFn: ({ signal }) =>
       gqlQuery({
         signal,
         path: "/graphql",
-        inData: {
-          gql: `
-            query {
-              allJobByUser(first: 100) {
-                rows {
-                  jobId
-                }
-              }
-            }
-          `,
-        },
+        inData: { gql: GET_APPLIED_JOBS(USER_ID) },
       }),
   });
-
- const alreadyApplied = appliedData?.allJobByUser?.rows?.some(
+ 
+  const alreadyApplied = appliedData?.allJobByUser?.rows?.some(
     (j) => String(j.jobId) === String(id)
   );
 
-  /* ---------------------------------------
-   * APPLY JOB MUTATION
-   * ------------------------------------- */
-  const [openAlert, setOpenAlert] = React.useState(false);
-
+  // ---------------------------------------
+  // APPLY JOB MUTATION
+  // ---------------------------------------
   const applyJobMutation = useMutation({
     mutationFn: () =>
-      gqlQuery({
+      gqlMutate({
         path: "/graphql",
-        inData: {
-          gql: APPLY_JOB,
-          variables: { jobId: Number(id) },
-        },
+        inData: { gql: APPLY_JOB(Number(id), USER_ID) },
       }),
     onSuccess: (res) => {
-      if (res?.applyJob?.ok) {
+      if (res?.applyJob?.success) {
         setOpenAlert(true);
-        queryClient.invalidateQueries(["appliedJobs"]);
+        queryClient.invalidateQueries(["applied_jobs", USER_ID]);
       }
     },
-    onError: () => {
-      alert("Failed to apply for the job");
+    onError: (err) => {
+      alert(err?.message || "Failed to apply for job");
     },
   });
 
-  /* ---------------------------------------
-   * LOADING / ERROR STATES
-   * ------------------------------------- */
-  if (isLoading || appliedLoading) {
+  // ---------------------------------------
+  // LOADING / ERROR STATES
+  // ---------------------------------------
+  if (jobLoading || appliedLoading) {
     return (
       <Box textAlign="center" mt={5}>
         <CircularProgress />
       </Box>
     );
   }
-
-  if (isError || !job) {
+console.log(!job);
+  if (!job) {
     return (
       <Typography color="error" textAlign="center">
         Job details not found.
@@ -114,9 +102,11 @@ export default function JobDetail() {
     );
   }
 
+  // ---------------------------------------
+  // UI
+  // ---------------------------------------
   return (
     <Box maxWidth="900px" mx="auto" p={5}>
-      {/* Back Button */}
       <Button
         startIcon={<ArrowBackIcon />}
         onClick={() => navigate(-1)}
@@ -126,14 +116,12 @@ export default function JobDetail() {
       </Button>
 
       <Paper elevation={6} sx={{ p: 4, borderRadius: 4 }}>
-        {/* Title */}
         <Typography variant="h3" fontWeight={500}>
           {job.jobTitle}
         </Typography>
 
         <Divider sx={{ my: 3 }} />
 
-        {/* Info */}
         <Box display="flex" flexWrap="wrap" gap={2} mb={3}>
           <Chip icon={<PlaceIcon />} label={job.location} />
           <Chip icon={<CurrencyRupeeIcon />} label={`Rs. ${job.salary}`} />
@@ -141,28 +129,23 @@ export default function JobDetail() {
           <Chip icon={<CategoryIcon />} label={job.category} />
         </Box>
 
-        {/* Description */}
         <Typography variant="h5" gutterBottom>
           Job Description
         </Typography>
-        <Typography color="text.secondary" lineHeight={1.8} mb={3}>
+        <Typography color="text.secondary" mb={3}>
           {job.description}
         </Typography>
 
-        {/* Qualification */}
         <Typography variant="h5" gutterBottom>
           Qualification
         </Typography>
-        <Typography color="text.secondary">
-          {job.qualification}
-        </Typography>
+        <Typography color="text.secondary">{job.qualification}</Typography>
 
-        {/* Apply Button */}
         <Box mt={4}>
           <Button
-            variant="contained"
             fullWidth
             size="large"
+            variant="contained"
             disabled={alreadyApplied || applyJobMutation.isLoading}
             onClick={() => applyJobMutation.mutate()}
             sx={{
@@ -172,7 +155,7 @@ export default function JobDetail() {
               borderRadius: 3,
               background: alreadyApplied
                 ? "linear-gradient(135deg, #9ca3af, #6b7280)"
-                : "linear-gradient(135deg, #f32f08ff, #f45009ff)",
+                : "linear-gradient(135deg, #f32f08, #f45009)",
             }}
           >
             {applyJobMutation.isLoading ? (
@@ -185,15 +168,13 @@ export default function JobDetail() {
           </Button>
         </Box>
 
-        {/* Success Snackbar */}
         <Snackbar
           open={openAlert}
           autoHideDuration={3000}
-          anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
           onClose={() => setOpenAlert(false)}
         >
           <Alert severity="success" variant="filled">
-             Application submitted successfully!
+            Application submitted successfully!
           </Alert>
         </Snackbar>
       </Paper>
