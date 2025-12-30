@@ -24,9 +24,23 @@ export const GET_JOBS = (searchTerm = "", page = 1) => {
     }
   `;
 };
+// export const GET_JOB_DETAIL = (id) => `
+//   query {
+//     jobById(jobId: ${id}) {
+//       jobId
+//       jobTitle
+//       description
+//       qualification
+//       location
+//       salary
+//       category
+//       experience
+//     }
+//   }
+// `;
 export const GET_JOB_DETAIL = (id) => `
   query {
-    jobById(jobId: ${id}) {
+    jobListById(jobId: ${id}) {
       jobId
       jobTitle
       description
@@ -38,6 +52,7 @@ export const GET_JOB_DETAIL = (id) => `
     }
   }
 `;
+
 // ---------------------------------------------
 // GET APPLIED JOBS BY USER
 // ---------------------------------------------
@@ -46,6 +61,11 @@ export const GET_APPLIED_JOBS = (userId) => `
     allJobByUser(userId: ${userId}) {
       rows {
         jobId
+        jobTitle
+        location
+        salary
+        description
+        qualification
       }
     }
   }
@@ -56,7 +76,7 @@ export const GET_APPLIED_JOBS = (userId) => `
 // ---------------------------------------------
 export const APPLY_JOB = (jobId,userId) => `
   mutation {
-    applyJob(jobId: $jobId, userId: $userId) {
+    applyJob(jobId: ${jobId}, userId: ${userId}) {
       success
       message
     }
