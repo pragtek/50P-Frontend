@@ -7,6 +7,7 @@ import {
   Button,
   TextField,
   Paper,
+  Typography,
   CircularProgress,
   IconButton,
 } from "@mui/material";
@@ -53,7 +54,7 @@ export default function TeacherList() {
   return (
     <Box p={5}>
       {/* Search */}
-      
+       <Typography variant="h3">Teachers Module</Typography>
         <form onSubmit={handleSearchSubmit}>
           <TextField
             inputRef={searchRef}
@@ -129,7 +130,7 @@ export default function TeacherList() {
     
 
       {/* Pagination */}
-      <Box mt={3} display="flex" gap={2}>
+      <Box mt={3} display="flex"  gap={2}>
         <Button
           variant="outlined"
           disabled={page === 1}
