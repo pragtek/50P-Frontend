@@ -32,7 +32,7 @@ const Footer = () => {
             fontSize="extra-small"
             sx={{ position: "relative", top: "2px" }}
           />{" "}
-          {currentDate} TileFlexAI | All Rights Reserved
+          {currentDate} 50P-API | All Rights Reserved
         </Typography>
       </Div>
     </Div>
