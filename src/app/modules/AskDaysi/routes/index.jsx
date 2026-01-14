@@ -51,6 +51,8 @@ import JobList from "../admin/dashboard/pages/JobModule/List";
 import JobForm from "../admin/dashboard/pages/JobModule/Form";
 import CourseList from "../admin/dashboard/pages/CourseModule/List";
 import CourseForm from "../admin/dashboard/pages/CourseModule/Form";
+import SitecontentForm from "../admin/dashboard/pages/SiteContent/Form";
+import SiteContentList from "../admin/dashboard/pages/SiteContent/List";
 import SpecializationsList from "../admin/dashboard/pages/Specializations/List";
 import SpecializationsForm from "../admin/dashboard/pages/Specializations/Form";
 import ClinicsList from "../admin/dashboard/pages/Clinics/List";
@@ -202,6 +204,11 @@ const ROUTES_ASKDAYSI = [
        { path: "/askdaysi/CourseModule", element: <Page Component={CourseList} hoc={withAuth} /> },
       { path: "/askdaysi/CourseModule/new", element: <Page Component={CourseForm} hoc={withAuth} /> },
       { path: "/askdaysi/CourseModule/:id", element: <Page Component={CourseForm} hoc={withAuth} /> },
+
+       //SiteContent MODULE
+       { path: "/askdaysi/SiteContent", element: <Page Component={SiteContentList} hoc={withAuth} /> },
+      { path: "/askdaysi/SiteContent/new", element: <Page Component={SitecontentForm} hoc={withAuth} /> },
+      { path: "/askdaysi/SiteContent/:id", element: <Page Component={SitecontentForm} hoc={withAuth} /> },
       // -----------------------
       // SPECIALIZATIONS
       // -----------------------

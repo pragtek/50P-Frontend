@@ -142,6 +142,12 @@ export const get_ASKDAYSI_MENU = () => {
           icon: "edit",
           roles: ["sa"],
         },
+         {
+          path: "/askdaysi/SiteContent",
+          label: "SiteContent",
+          icon: "edit",
+          roles: ["sa"],
+        },
         {
           path: "/askdaysi/specializations",
           label: "Specialization",
