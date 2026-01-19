@@ -1,8 +1,5 @@
 import { PER_PAGE } from "@app/_utilities/constants/paths";
 
-/* ============================
-   GET ALL JOBS (Pagination + Search)
-   ============================ */
 export const GET_JOBS = (search = "", page = 1) => `
 query {
   allJobs(
@@ -10,33 +7,36 @@ query {
     skip: ${(page - 1) * PER_PAGE}
     first: ${PER_PAGE}
   ) {
-      totalRows
-      rows {
-        jobId
-        jobTitle
-        description
-        qualification
-        location
-        salary
-        employmentType
-        category
-        experience
+    totalRows
+    rows {
+      jobId
+      jobTitle
+      description
+      qualification
+      location
+      address
+      latitude
+      longitude
+      salary
+      employmentType
+      category
+      experience
     }
   }
 }
 `;
 
-/* ============================
-   GET JOB BY ID
-   ============================ */
 export const GET_JOB = (id) => `
 query {
-  getJobById(jobId: ${id}) {
+  JobById(jobId: ${id}) {
     jobId
     jobTitle
     description
     qualification
     location
+    address
+    latitude
+    longitude
     salary
     employmentType
     category
@@ -45,9 +45,6 @@ query {
 }
 `;
 
-/* ============================
-   CREATE JOB
-   ============================ */
 export const createJob = (data) => `
 mutation {
   createJob(
@@ -58,22 +55,18 @@ mutation {
     salary: "${data.salary}",
     employmentType: "${data.employmentType}",
     category: "${data.category}",
-    experience: "${data.experience}"
+    experience: "${data.experience}",
+    address: "${data.address}",
+    latitude: "${data.latitude}",
+    longitude: "${data.longitude}"
   ) {
     job {
       jobId
-      jobTitle
-      category
-      location
-      salary
     }
   }
 }
 `;
 
-/* ============================
-   UPDATE JOB
-   ============================ */
 export const updateJob = (data) => `
 mutation {
   updateJob(
@@ -85,22 +78,18 @@ mutation {
     salary: "${data.salary}",
     employmentType: "${data.employmentType}",
     category: "${data.category}",
-    experience: "${data.experience}"
+    experience: "${data.experience}",
+    address: "${data.address}",
+    latitude: "${data.latitude}",
+    longitude: "${data.longitude}"
   ) {
     job {
       jobId
-      jobTitle
-      category
-      location
-      salary
     }
   }
 }
 `;
 
-/* ============================
-   DELETE JOB
-   ============================ */
 export const deleteJob = (id) => `
 mutation {
   deleteJob(jobId: ${id}) {
